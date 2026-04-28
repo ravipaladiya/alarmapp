@@ -29,3 +29,10 @@ jobs:
         with:
           name:alarm-app
           path: app/build/outputs/apk/debug/app-debug.apk
+
+
+- name: Send Message to Slack
+  run: |
+    curl -X POST -H 'Content-type: application/json' \
+    --data '{"text":"🚀 APK Build Completed Successfully!"}' \
+    ${{ secrets.SLACK_WEBHOOK_URL }}
