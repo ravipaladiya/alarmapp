@@ -3,6 +3,7 @@ name: Build APK and Send to Slack
 on:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
