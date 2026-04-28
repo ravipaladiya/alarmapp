@@ -29,6 +29,7 @@ fun PremiumScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         // Header
         Row(

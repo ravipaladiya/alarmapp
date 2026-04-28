@@ -29,6 +29,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.absoluteValue
+import kotlinx.coroutines.delay
 
 @Composable
 fun AlarmRingingScreen(
@@ -59,7 +60,13 @@ fun AlarmRingingScreen(
         label = "bell_float",
     )
 
-    val now = LocalTime.now()
+    var now by remember { mutableStateOf(LocalTime.now()) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            now = LocalTime.now()
+            delay(1000L)
+        }
+    }
     val timeText = now.format(DateTimeFormatter.ofPattern("hh:mm"))
     val periodText = now.format(DateTimeFormatter.ofPattern("a"))
     val dateText = LocalDate.now().format(DateTimeFormatter.ofPattern("EEEE, MMMM d", Locale.getDefault()))

@@ -35,6 +35,7 @@ fun MoodScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         LumenTopBar(title = "How do you want to wake?", onBack = onBack)
 

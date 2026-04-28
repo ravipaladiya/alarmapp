@@ -242,7 +242,7 @@ class AlarmRingingService : Service() {
                 // Reschedule for next occurrence if repeating
                 if (alarm.repeatDays.isNotEmpty()) {
                     val next = scheduler.scheduleAlarm(alarm)
-                    repository.updateAlarm(alarm.copy(nextTriggerAt = next, snoozeCount = 0))
+                    repository.updateAlarm(alarm.copy(nextTriggerAt = next))
                 } else {
                     repository.setAlarmEnabled(alarm.id, false)
                 }

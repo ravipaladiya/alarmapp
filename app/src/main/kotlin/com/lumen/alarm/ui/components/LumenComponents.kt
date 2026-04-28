@@ -53,16 +53,16 @@ fun LumenButton(
     val (bg, fgColor) = when (variant) {
         LumenButtonVariant.PRIMARY -> Brush.horizontalGradient(
             listOf(colors.indigoSoft, IndigoAccent)
-        ) to colors.bgDeepest
+        ) to Color.White
         LumenButtonVariant.DANGER -> Brush.horizontalGradient(
             listOf(RoseAccent, Color(0xFFFF6B8A))
-        ) to colors.bgDeepest
+        ) to Color.White
         LumenButtonVariant.AURORA -> Brush.horizontalGradient(
             listOf(AuroraAccent, Color(0xFF4DBFAD))
-        ) to colors.bgDeepest
+        ) to Color.White
         LumenButtonVariant.GOLD -> Brush.horizontalGradient(
             listOf(GoldAccent, Color(0xFFE8A83C))
-        ) to colors.bgDeepest
+        ) to Color.White
         LumenButtonVariant.GHOST -> Brush.linearGradient(
             listOf(Color.Transparent, Color.Transparent)
         ) to colors.ink0

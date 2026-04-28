@@ -51,6 +51,7 @@ fun CreateAlarmScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
+                .navigationBarsPadding()
         ) {
             // Top bar
             Row(
@@ -67,7 +68,7 @@ fun CreateAlarmScreen(
                 }
                 Text(
                     text = if (alarmId != null) "Edit alarm" else "New alarm",
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.headlineLarge,
                     color = colors.ink0,
                     modifier = Modifier.weight(1f),
                     fontWeight = FontWeight.Bold,
