@@ -13,6 +13,6 @@ class AlarmActionReceiver : BroadcastReceiver() {
             putExtra("alarm_id", intent.getLongExtra("alarm_id", -1))
             putExtra("snooze_minutes", intent.getIntExtra("snooze_minutes", 5))
         }
-        context.startService(serviceIntent)
+        context.startForegroundService(serviceIntent)
     }
 }
