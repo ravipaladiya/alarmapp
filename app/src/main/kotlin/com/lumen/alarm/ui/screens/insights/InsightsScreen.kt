@@ -223,7 +223,7 @@ private fun SnoozeHeatmap(modifier: Modifier = Modifier) {
     val colors = MaterialTheme.lumen
     val dayLabels = listOf("Mo", "Tu", "We", "Th", "Fr", "Sa", "Su")
     val weeks = 4
-    val mock = List(7) { List(weeks) { (Math.random() * 4).toInt() } }
+    val mock = remember { List(7) { List(weeks) { (Math.random() * 4).toInt() } } }
 
     Column(modifier = modifier) {
         Text("Snooze frequency by day", style = MaterialTheme.typography.bodySmall, color = colors.ink2)

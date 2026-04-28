@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -281,9 +282,27 @@ private fun StarfieldBackground() {
     val inf = rememberInfiniteTransition(label = "stars")
     val twinkle1 by inf.animateFloat(0.3f, 1f, infiniteRepeatable(tween(4800, easing = EaseInOut), RepeatMode.Reverse), label = "t1")
     val twinkle2 by inf.animateFloat(1f, 0.2f, infiniteRepeatable(tween(3200, 600, easing = EaseInOut), RepeatMode.Reverse), label = "t2")
+    val twinkle3 by inf.animateFloat(0.5f, 0.9f, infiniteRepeatable(tween(5500, 300, easing = EaseInOut), RepeatMode.Reverse), label = "t3")
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        // This would normally be a Canvas drawing, simplified here
+    // Star positions are stable across recompositions
+    val stars = remember {
+        List(80) { Triple(Math.random().toFloat(), Math.random().toFloat(), Math.random().toFloat()) }
+    }
+
+    androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
+        stars.forEachIndexed { i, (x, y, sizeFactor) ->
+            val alpha = when (i % 3) {
+                0 -> twinkle1
+                1 -> twinkle2
+                else -> twinkle3
+            }
+            val radius = sizeFactor * 1.8f + 0.6f
+            drawCircle(
+                color = Color.White.copy(alpha = alpha * 0.65f),
+                radius = radius,
+                center = Offset(x * size.width, y * size.height),
+            )
+        }
     }
 }
 

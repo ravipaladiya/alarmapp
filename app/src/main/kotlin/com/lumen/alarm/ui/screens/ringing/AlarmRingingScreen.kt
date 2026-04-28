@@ -200,16 +200,16 @@ fun AlarmRingingScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                // Snooze left
+                // Dismiss — left drag (dragOffset < -100) triggers dismiss
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
-                        .clickable { onSnooze(5) }
+                        .clickable { onDismiss() }
                         .graphicsLayer { translationX = leftNudge },
                 ) {
-                    Icon(Icons.Default.ChevronLeft, null, tint = GoldAccent, modifier = Modifier.size(20.dp))
-                    Text("Snooze 5m", style = MaterialTheme.typography.bodyMedium, color = Ink1)
+                    Icon(Icons.Default.ChevronLeft, null, tint = RoseAccent, modifier = Modifier.size(20.dp))
+                    Text("Dismiss", style = MaterialTheme.typography.bodyMedium, color = Ink1)
                 }
 
                 Box(
@@ -218,22 +218,22 @@ fun AlarmRingingScreen(
                         .background(LineMedium)
                 )
 
-                // Dismiss right
+                // Snooze — right drag (dragOffset > 100) triggers snooze
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier
-                        .clickable { onDismiss() }
+                        .clickable { onSnooze(5) }
                         .graphicsLayer { translationX = rightNudge },
                 ) {
-                    Text("Dismiss", style = MaterialTheme.typography.bodyMedium, color = Ink1)
-                    Icon(Icons.Default.ChevronRight, null, tint = IndigoAccent, modifier = Modifier.size(20.dp))
+                    Text("Snooze 5m", style = MaterialTheme.typography.bodyMedium, color = Ink1)
+                    Icon(Icons.Default.ChevronRight, null, tint = GoldAccent, modifier = Modifier.size(20.dp))
                 }
             }
 
             Spacer(Modifier.height(12.dp))
             Text(
-                "Swipe right to snooze, left to dismiss",
+                "Swipe left to dismiss · right to snooze",
                 style = MaterialTheme.typography.bodySmall,
                 color = Ink3,
                 textAlign = TextAlign.Center,
