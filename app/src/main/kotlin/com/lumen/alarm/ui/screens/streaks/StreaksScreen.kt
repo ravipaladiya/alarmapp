@@ -24,6 +24,8 @@ import com.lumen.alarm.ui.components.*
 import com.lumen.alarm.ui.theme.*
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.TextStyle
+import java.util.Locale
 
 @Composable
 fun StreaksScreen(
@@ -33,6 +35,9 @@ fun StreaksScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val colors = MaterialTheme.lumen
 
+    val monthName = remember {
+        YearMonth.now().month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+    }
     var showShareMilestone by remember { mutableStateOf(uiState.currentStreak >= 21) }
 
     Column(
@@ -65,7 +70,7 @@ fun StreaksScreen(
         )
 
         Spacer(Modifier.height(20.dp))
-        SectionLabel("April calendar", modifier = Modifier.padding(horizontal = 22.dp))
+        SectionLabel("$monthName calendar", modifier = Modifier.padding(horizontal = 22.dp))
 
         // Month calendar
         MonthCalendar(

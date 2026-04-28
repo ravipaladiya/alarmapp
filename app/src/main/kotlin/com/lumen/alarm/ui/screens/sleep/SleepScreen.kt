@@ -156,6 +156,14 @@ private fun SleepArcCanvas(modifier: Modifier = Modifier) {
 @Composable
 private fun SleepCyclesGraph(modifier: Modifier = Modifier) {
     val colors = MaterialTheme.lumen
+    // Simulated sleep-stage sequence (0=Deep, 1=Light, 2=REM) across the night
+    val sleepStages = remember {
+        listOf(1,1,0,0,0,0,2,1,1,0,0,0,2,2,1,1,0,0,2,2,1,1,1,2,2,1,1,2,2,1,2,1)
+    }
+    val stageColors = listOf(AuroraAccent, IndigoAccent, LilacAccent)
+    // Normalized bar heights: Deep tallest (fills full height), Light medium, REM short
+    val stageHeights = listOf(1.0f, 0.55f, 0.28f)
+
     Column(modifier = modifier) {
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             listOf("REM" to LilacAccent, "Light" to IndigoAccent, "Deep" to AuroraAccent).forEach { (label, color) ->
@@ -166,16 +174,22 @@ private fun SleepCyclesGraph(modifier: Modifier = Modifier) {
             }
         }
         Spacer(Modifier.height(12.dp))
-        // Wave graph placeholder
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
-                .clip(ShapeMedium)
-                .background(colors.bgHover),
-            contentAlignment = Alignment.Center,
+                .height(64.dp),
+            horizontalArrangement = Arrangement.spacedBy(3.dp),
+            verticalAlignment = Alignment.Bottom,
         ) {
-            Text("Sleep wave visualization", style = MaterialTheme.typography.bodySmall, color = colors.ink3)
+            sleepStages.forEach { stage ->
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight(stageHeights[stage])
+                        .clip(ShapePill)
+                        .background(stageColors[stage].copy(alpha = 0.72f))
+                )
+            }
         }
         Spacer(Modifier.height(8.dp))
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Lumen" parent="android:Theme.Material.NoTitleBar">
+    <!--
+        Using android:Theme.DeviceDefault.NoActionBar as parent — always available on the platform
+        without any external dependency, and compatible with compileSdk 35.
+        Window bar colors and Compose system-bar handling are done in LumenTheme via WindowCompat.
+    -->
+    <style name="Theme.Lumen" parent="android:Theme.DeviceDefault.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/bg_app</item>
     </style>
 
+    <!--
+        Fullscreen style for AlarmRingingActivity.
+        Lock-screen / screen-on behaviour is handled via:
+          • android:showOnLockScreen + android:turnScreenOn manifest attributes
+          • WindowManager.LayoutParams flags set in AlarmRingingActivity.onCreate()
+        The deprecated android:attr/windowShowWhenLocked and friends are NOT used here
+        because they were removed from the platform in API 35.
+    -->
     <style name="Theme.Lumen.Fullscreen" parent="Theme.Lumen">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowShowWhenLocked">true</item>
-        <item name="android:windowTurnScreenOn">true</item>
-        <item name="android:windowDismissKeyguard">true</item>
     </style>
 </resources>
