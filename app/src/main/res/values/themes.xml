@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Lumen" parent="android:Theme.Material.NoTitleBar">
+    <!-- Theme.Material.NoActionBar is the correct Material theme name (not NoTitleBar) -->
+    <style name="Theme.Lumen" parent="android:Theme.Material.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowBackground">@color/bg_app</item>
     </style>
 
+    <!-- windowShowWhenLocked/windowTurnScreenOn/windowDismissKeyguard removed:
+         deprecated API 27+ and unavailable in compileSdk 35.
+         AlarmRingingActivity handles these programmatically via setShowWhenLocked() etc. -->
     <style name="Theme.Lumen.Fullscreen" parent="Theme.Lumen">
         <item name="android:windowFullscreen">true</item>
-        <item name="android:windowShowWhenLocked">true</item>
-        <item name="android:windowTurnScreenOn">true</item>
-        <item name="android:windowDismissKeyguard">true</item>
     </style>
 </resources>
