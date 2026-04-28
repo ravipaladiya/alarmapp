@@ -23,30 +23,31 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.9'
 
-      - name: Generate Gradle Wrapper
-        run: |
-          gradle wrapper --gradle-version 8.9
-          chmod +x ./gradlew
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Build APK
         run: ./gradlew assembleDebug
 
       - name: Upload APK Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: alarm-app
+          name: alarm-app-debug
           path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
 
       - name: Send Message to Slack
-        if: always()
+        if: always() && secrets.SLACK_WEBHOOK_URL != ''
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          STATUS="✅ APK Build Succeeded!"
-          if [ "${{ job.status }}" != "success" ]; then
-            STATUS="❌ APK Build Failed!"
+          if [ "${{ job.status }}" = "success" ]; then
+            STATUS="✅ APK Build Succeeded! (${{ github.ref_name }})"
+          else
+            STATUS="❌ APK Build Failed! (${{ github.ref_name }}) — check ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           fi
-          curl -X POST -H 'Content-type: application/json' \
-          --data "{\"text\":\"$STATUS\"}" \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -fsS -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"$STATUS\"}" \
+            "$SLACK_WEBHOOK_URL"
