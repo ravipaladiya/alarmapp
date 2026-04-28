@@ -37,16 +37,66 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: alarm-app
+          name: alarm-app-build-${{ github.run_number }}
           path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 7
 
-      - name: Send Message to Slack
-        if: always()
+      - name: Upload APK to Slack
+        if: success()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
         run: |
-          STATUS="✅ APK Build Succeeded!"
-          if [ "${{ job.status }}" != "success" ]; then
-            STATUS="❌ APK Build Failed!"
+          APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+          APK_SIZE=$(wc -c < "$APK_PATH")
+          BRANCH="${{ github.ref_name }}"
+          RUN_NUM="${{ github.run_number }}"
+          COMMIT="${{ github.sha }}"
+          SHORT_COMMIT="${COMMIT:0:7}"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Step 1: Request upload URL from Slack
+          UPLOAD_RESP=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            --data-urlencode "filename=alarm-app-debug-build${RUN_NUM}.apk" \
+            -d "length=${APK_SIZE}")
+
+          echo "Upload URL response: $UPLOAD_RESP"
+          UPLOAD_URL=$(echo "$UPLOAD_RESP" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('upload_url') or '')")
+          FILE_ID=$(echo "$UPLOAD_RESP" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('file_id') or '')")
+
+          if [ -z "$UPLOAD_URL" ]; then
+            echo "ERROR: Could not obtain Slack upload URL. Response: $UPLOAD_RESP"
+            exit 1
           fi
-          curl -X POST -H 'Content-type: application/json' \
-          --data "{\"text\":\"$STATUS\"}" \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+
+          # Step 2: Upload the APK bytes
+          curl -s -X POST "$UPLOAD_URL" \
+            -F "file=@${APK_PATH}" \
+            --output /tmp/upload_result.json
+          echo "Upload result: $(cat /tmp/upload_result.json)"
+
+          # Step 3: Complete upload — post file to channel with a rich message
+          COMPLETE_RESP=$(curl -s -X POST "https://slack.com/api/files.completeUploadExternal" \
+            -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{
+              \"files\": [{\"id\": \"$FILE_ID\"}],
+              \"channel_id\": \"$SLACK_CHANNEL_ID\",
+              \"initial_comment\": \"✅ *New APK ready* — Build #${RUN_NUM} on \`${BRANCH}\` (\`${SHORT_COMMIT}\`)\n<${RUN_URL}|View CI run>\"
+            }")
+
+          echo "Complete response: $COMPLETE_RESP"
+          OK=$(echo "$COMPLETE_RESP" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('ok'))")
+          if [ "$OK" != "True" ]; then
+            echo "ERROR: Slack file completion failed: $COMPLETE_RESP"
+            exit 1
+          fi
+
+      - name: Notify Slack on Failure
+        if: failure()
+        run: |
+          curl -s -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"❌ *APK Build Failed* — Build #${{ github.run_number }} on \`${{ github.ref_name }}\`\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View CI run>\"}" \
+            "${{ secrets.SLACK_WEBHOOK_URL }}"
