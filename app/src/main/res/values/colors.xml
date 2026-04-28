@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_deepest">#0A0E1F</color>
+    <color name="bg_app">#11162B</color>
+    <color name="bg_card">#181F3A</color>
+    <color name="bg_hover">#232C4F</color>
+    <color name="ink_0">#F4F6FF</color>
+    <color name="ink_1">#C9CEE8</color>
+    <color name="ink_2">#8189AD</color>
+    <color name="ink_3">#525B81</color>
+    <color name="indigo">#7C8CFF</color>
+    <color name="indigo_soft">#A5B1FF</color>
+    <color name="indigo_deep">#4D5ED4</color>
+    <color name="aurora">#6EE7D4</color>
+    <color name="gold">#F5CB6E</color>
+    <color name="rose">#FF9BB3</color>
+    <color name="lilac">#B598FF</color>
+</resources>

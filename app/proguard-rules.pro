@@ -1,0 +1,3 @@
+-keep class com.lumen.alarm.data.local.entity.** { *; }
+-keep class com.lumen.alarm.domain.model.** { *; }
+-dontwarn kotlin.Unit
