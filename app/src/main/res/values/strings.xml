@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lumen</string>
+    <string name="app_tagline">rise gently</string>
+
+    <!-- Alarm actions -->
+    <string name="action_snooze">Snooze</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_add_alarm">Add new alarm</string>
+    <string name="action_edit_alarm">Edit alarm</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_done">Done</string>
+
+    <!-- Home -->
+    <string name="greeting_morning">Good morning</string>
+    <string name="greeting_afternoon">Good afternoon</string>
+    <string name="greeting_evening">Good evening</string>
+    <string name="greeting_night">Good night</string>
+    <string name="next_alarm">Next alarm</string>
+    <string name="no_alarms_title">No alarms yet</string>
+    <string name="no_alarms_body">Set your first alarm and start building a consistent morning ritual.</string>
+    <string name="set_first_alarm">Set first alarm</string>
+
+    <!-- Alarm form -->
+    <string name="label_hint">e.g. Morning ritual</string>
+    <string name="repeat_once">Once</string>
+    <string name="repeat_weekdays">Weekdays</string>
+    <string name="repeat_weekends">Weekends</string>
+    <string name="repeat_every_day">Every day</string>
+
+    <!-- Notifications -->
+    <string name="notif_ringing_title">Alarm ringing</string>
+    <string name="notif_upcoming_title">Upcoming alarm</string>
+    <string name="notif_missed_title">Missed alarm</string>
+    <string name="notif_snooze_title">Alarm snoozed</string>
+    <string name="notif_streak_title">Streak milestone!</string>
+
+    <!-- Permissions -->
+    <string name="perm_notif_title">Allow Lumen to send notifications?</string>
+    <string name="perm_exact_alarm_title">Schedule exact alarms</string>
+    <string name="perm_battery_title">Exclude from battery saver</string>
+    <string name="perm_location_title">Use location in the background</string>
+    <string name="perm_mic_title">Voice commands</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_defaults">Defaults</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_data">Data</string>
+    <string name="settings_about">About</string>
+    <string name="version_label">Version</string>
+
+    <!-- Premium -->
+    <string name="premium_title">Lumen Premium</string>
+    <string name="premium_headline">Unlock the full ritual.</string>
+    <string name="premium_cta">Start 7-day free trial</string>
+    <string name="premium_cancel">Cancel anytime · No charges during trial</string>
+
+    <!-- Streaks -->
+    <string name="streak_day">day streak</string>
+    <string name="streak_coins">coins</string>
+    <string name="streak_personal_best">Personal best: %d days</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_headline">Set your first alarm.\nEverything else can wait.</string>
+    <string name="onboarding_cta">Set alarm &amp; continue</string>
+    <string name="onboarding_trust_no_account">No account</string>
+    <string name="onboarding_trust_ai">AI free 14d</string>
+    <string name="onboarding_trust_offline">Works offline</string>
+
+    <!-- Device admin -->
+    <string name="device_admin_label">Lumen Anti-Skip</string>
+    <string name="device_admin_description">Prevents alarm interference for 30 minutes before your alarm rings.</string>
+</resources>
