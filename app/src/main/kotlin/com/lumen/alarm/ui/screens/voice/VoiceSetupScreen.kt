@@ -42,7 +42,8 @@ fun VoiceSetupScreen(onBack: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(colors.bgApp)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(

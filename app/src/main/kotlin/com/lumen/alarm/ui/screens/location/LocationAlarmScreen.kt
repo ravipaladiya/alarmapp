@@ -26,6 +26,7 @@ fun LocationAlarmScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         LumenTopBar(
             title = "Location alarm",

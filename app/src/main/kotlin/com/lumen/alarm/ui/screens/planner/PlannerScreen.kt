@@ -47,6 +47,7 @@ fun PlannerScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         LumenTopBar(
             title = "Today",

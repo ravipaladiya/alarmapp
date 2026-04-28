@@ -45,6 +45,7 @@ fun StreaksScreen(
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         LumenTopBar(title = "Streaks", onBack = onBack)
 

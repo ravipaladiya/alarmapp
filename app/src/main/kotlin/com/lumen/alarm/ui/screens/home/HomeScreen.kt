@@ -416,19 +416,20 @@ fun AlarmRow(
     ) {
         // Multi-select checkbox
         AnimatedVisibility(visible = isMultiSelectMode) {
-            Box(
-                modifier = Modifier
-                    .size(22.dp)
-                    .clip(CircleShape)
-                    .background(if (isSelected) IndigoAccent else colors.bgHover)
-                    .padding(end = 12.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                if (isSelected) {
-                    Icon(Icons.Default.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(22.dp)
+                        .clip(CircleShape)
+                        .background(if (isSelected) IndigoAccent else colors.bgHover),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    if (isSelected) {
+                        Icon(Icons.Default.Check, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+                    }
                 }
+                Spacer(Modifier.width(12.dp))
             }
-            Spacer(Modifier.width(12.dp))
         }
 
         Column(modifier = Modifier.weight(1f)) {
@@ -567,7 +568,10 @@ private fun EmptyAlarmsState(
             variant = LumenButtonVariant.PRIMARY,
         )
         // Quick-start chips
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.horizontalScroll(rememberScrollState()),
+        ) {
             listOf("6:00 Workout", "7:30 Work", "6:45 School").forEach { chip ->
                 Row(
                     modifier = Modifier

@@ -41,6 +41,7 @@ fun RoutineScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(colors.bgApp)
             .verticalScroll(rememberScrollState())
+            .navigationBarsPadding()
     ) {
         LumenTopBar(
             title = "Routine",
