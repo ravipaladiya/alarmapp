@@ -25,6 +25,7 @@ fun AlarmEntity.toAlarm(): Alarm = Alarm(
     goalId = goalId,
     createdAt = createdAt,
     nextTriggerAt = nextTriggerAt,
+    snoozeCount = snoozeCount,
 )
 
 fun Alarm.toEntity(): AlarmEntity = AlarmEntity(
@@ -49,4 +50,5 @@ fun Alarm.toEntity(): AlarmEntity = AlarmEntity(
     goalId = goalId,
     createdAt = createdAt,
     nextTriggerAt = nextTriggerAt,
+    snoozeCount = snoozeCount,
 )
