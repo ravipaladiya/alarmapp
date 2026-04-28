@@ -25,6 +25,7 @@ data class Alarm(
     val goalId: Long? = null,
     val createdAt: Long = System.currentTimeMillis(),
     val nextTriggerAt: Long = 0,
+    val snoozeCount: Int = 0,
 ) {
     val timeLabel: String get() {
         val h = if (hour % 12 == 0) 12 else hour % 12
